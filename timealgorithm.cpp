@@ -5,8 +5,47 @@
 #include <functional>
 #include <random>
 
+// test an algorithm and print its average runtime for the given array - params: std::function<void(int* array, int size)> sorter, int dataSize, int numTrials = 1000
+int timeAlgorithm(std::function<void(int* array, int size)> sorter, int* array, int dataSize, int trialsPerTest/*= 1000*/){
+    std::chrono::time_point<std::chrono::high_resolution_clock> start, end;
+    int currentTrialTime;
+    long totalTime = 0;
+
+    int numTimeTests = 11;
+    int tests[numTimeTests];
+
+    int originalArray[dataSize];
+
+    for(int i = 0; i < numTimeTests; i++){
+        for(int j = 0; j < trialsPerTest; j++){
+            std::copy(array, array + dataSize - 1, originalArray);
+
+            start = std::chrono::high_resolution_clock::now();
+
+            sorter(originalArray, dataSize);
+
+            end = std::chrono::high_resolution_clock::now();
+
+            currentTrialTime = std::chrono::duration_cast<std::chrono::nanoseconds>( end - start ).count();
+            totalTime += currentTrialTime;
+        }
+
+        tests[i] = totalTime / trialsPerTest;
+
+
+        totalTime = 0;
+    }
+
+    sorter(tests, numTimeTests);
+
+    std::cout << "median average time: " << tests[numTimeTests / 2] << std::endl;
+
+    // return tests that is about the median of all tests
+    return tests[numTimeTests / 2];
+}
+
 // test an algorithm and print its average runtime for the given data size - params: std::function<void(int* array, int size)> sorter, int dataSize,  int numTrials = 100
-int timeAlgorithm(std::function<void(int* array, int size)> sorter, int dataSize, int numTrials){
+int timeAlgorithm(std::function<void(int* array, int size)> sorter, int dataSize, int trialsPerTest/*= 1000*/){
     std::chrono::time_point<std::chrono::high_resolution_clock> start, end;
     int currentTrialTime;
     int totalTime = 0;
@@ -17,7 +56,7 @@ int timeAlgorithm(std::function<void(int* array, int size)> sorter, int dataSize
     int currentArray[dataSize];
 
     for(int i = 0; i < numTimeTests; i++){
-        for(int j = 0; j < numTrials; j++){
+        for(int j = 0; j < trialsPerTest; j++){
             createRandomIntArray(currentArray, dataSize);
 
             start = std::chrono::high_resolution_clock::now();
@@ -29,7 +68,7 @@ int timeAlgorithm(std::function<void(int* array, int size)> sorter, int dataSize
             currentTrialTime = std::chrono::duration_cast<std::chrono::nanoseconds>( end - start ).count();
             totalTime += currentTrialTime;
         }
-        tests[i] = totalTime / numTrials;
+        tests[i] = totalTime / trialsPerTest;
         totalTime = 0;
     }
 
