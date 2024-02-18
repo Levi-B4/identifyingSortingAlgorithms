@@ -1,33 +1,29 @@
 #include <iostream>
 #include <chrono>
-#include "include/sorting_library.h"
+#include <functional>
+#include <random>
 
+#include "include/sorting_library.h"
+#include "timealgorithm.h"
 
 int main() {
-
-    // Make some data to sort
-    int data[50];
-    for (int i = 0; i < 50; i++)
-        data[i] = i;
-
     std::cout << std::fixed << std::showpoint;
     std::cout.precision(9);
     print_version_number();
 
-    // Create a start and end time_point object
-    std::chrono::time_point<std::chrono::high_resolution_clock> start, end;
+    std::function<void(int* array, int size)> sorters[5];
+    sorters[0] = mystery01;
+    sorters[1] = mystery02; //showing extremely slow with big sets
+    sorters[2] = mystery03;
+    sorters[3] = mystery04;
+    sorters[4] = mystery05;
+    for(int i = 0; i < 5; i++){
+        timeAlgorithm(sorters[i], 200, 1000);
+    }
 
-    // 1. Get the current time (start)
-    start = std::chrono::high_resolution_clock::now();
-
-    // 2. Run the algorithm
-    mystery03(data, 50);
-
-    // 3. Get current time again (end)
-    end = std::chrono::high_resolution_clock::now();
-
-    //calculate the duration between start and end and print to the terminal
-    std::chrono::duration<double> time_in_seconds = end - start;
-    std::cout << std::fixed << "Duration: " << time_in_seconds.count() << std::endl;
     return 0;
 }
+
+
+
+
