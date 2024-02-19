@@ -6,12 +6,12 @@
 #include <random>
 
 // test an algorithm and print its average runtime for the given array - params: std::function<void(int* array, int size)> sorter, int dataSize, int numTrials = 1000
-int timeAlgorithm(std::function<void(int* array, int size)> sorter, int* array, int dataSize, int trialsPerTest/*= 1000*/){
+long timeAlgorithm(std::function<void(int* array, int size)> sorter, int* array, int dataSize, int trialsPerTest/*= 1000*/){
     std::chrono::time_point<std::chrono::high_resolution_clock> start, end;
-    int currentTrialTime;
-    long totalTime = 0;
+    long currentTrialTime;
+    long long totalTime = 0;
 
-    int numTimeTests = 11;
+    int numTimeTests = 7;
     int tests[numTimeTests];
 
     int originalArray[dataSize];
@@ -38,17 +38,15 @@ int timeAlgorithm(std::function<void(int* array, int size)> sorter, int* array, 
 
     sorter(tests, numTimeTests);
 
-    std::cout << "median average time: " << tests[numTimeTests / 2] << std::endl;
-
     // return tests that is about the median of all tests
     return tests[numTimeTests / 2];
 }
 
 // test an algorithm and print its average runtime for the given data size - params: std::function<void(int* array, int size)> sorter, int dataSize,  int numTrials = 100
-int timeAlgorithm(std::function<void(int* array, int size)> sorter, int dataSize, int trialsPerTest/*= 1000*/){
+long timeAlgorithm(std::function<void(int* array, int size)> sorter, int dataSize, int trialsPerTest/*= 1000*/){
     std::chrono::time_point<std::chrono::high_resolution_clock> start, end;
-    int currentTrialTime;
-    int totalTime = 0;
+    long currentTrialTime;
+    long long totalTime = 0;
 
     int numTimeTests = 11;
     int tests[numTimeTests];
@@ -73,8 +71,6 @@ int timeAlgorithm(std::function<void(int* array, int size)> sorter, int dataSize
     }
 
     sorter(tests, numTimeTests);
-
-    std::cout << "median average time: " << tests[numTimeTests / 2] << std::endl;
 
     // return tests that is about the median of all tests
     return tests[numTimeTests / 2];
