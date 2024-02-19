@@ -8,6 +8,9 @@
 #include <functional>
 #include <random>
 
-void testMysteryAlgorithms(std::function<void(int* array, int size)>* sorters, int numSorters);
+using Sorter = std::function<void(int* array, int size)>;
+
+// test sorting algorithms and output the results to a csv file - params: std::function<void(int* array, int size)>, int numSorters
+void testMysteryAlgorithms(const Sorter* sorters, const int numSorters, const char* outputFilePath);
 
 #endif // TESTMYSTERYALGORITHMS_H

@@ -1,0 +1,16 @@
+Sorter,Array Order,size 10,size 100,size 1000
+Sorter1,Random,1625,17169,216268
+Sorter1,Ascending,1115,11509,136216
+Sorter1,Descending,1186,11794,141287
+Sorter2,Random,811,54071,5454436
+Sorter2,Ascending,316,645,3795
+Sorter2,Descending,666,50943,4859419
+Sorter3,Random,586,10018,792689
+Sorter3,Ascending,343,1003,7271
+Sorter3,Descending,468,17004,1560470
+Sorter4,Random,680,7660,111125
+Sorter4,Ascending,686,26082,2353858
+Sorter4,Descending,618,23961,2153615
+Sorter5,Random,829,26581,2041876
+Sorter5,Ascending,587,21346,1954062
+Sorter5,Descending,547,24102,2155260
