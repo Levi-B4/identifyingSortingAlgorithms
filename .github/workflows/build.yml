@@ -16,7 +16,7 @@ on:
       ###   List them in the order that they need to appear in Argv param of main.
       ###   Output Files will follow input files
       ###   Note: These should be the actual names of the files.  No double quotes
-      INPUT_FILES:  ###INSERT INPUT FILE NAMES
+      //INPUT_FILES:  ###INSERT INPUT FILE NAMES
       OUTPUT_FILES: ./SortingTestsOutput.csv ###INSERT OUTPUT FILE NAMES
       COMPILER: ${{matrix.config.compiler}}
       COMP: ${{matrix.config.comp}}
@@ -73,11 +73,11 @@ on:
 
       - name: Run the project - Normal
         working-directory: ${{runner.workspace}}/build
-        run: ./${{env.EXE_NAME}} $INPUT_FILES $OUTPUT_FILES 1>/dev/null
+        run: ./${{env.EXE_NAME}} $OUTPUT_FILES 1>/dev/null
 
       - name: Run the project - Valgrind
         working-directory: ${{runner.workspace}}/build
-        run: valgrind --error-exitcode=42 --errors-for-leak-kinds=all --leak-check=full ./${{env.EXE_NAME}} $INPUT_FILES $OUTPUT_FILES 1>/dev/null
+        run: valgrind --error-exitcode=42 --errors-for-leak-kinds=all --leak-check=full ./${{env.EXE_NAME}} $OUTPUT_FILES 1>/dev/null
 
 
 
