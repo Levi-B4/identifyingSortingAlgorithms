@@ -4,8 +4,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 # Create the executable for sorting
 add_executable(MysterySorters main.cpp
-    timealgorithm.h timealgorithm.cpp
-    testmysteryalgorithms.h testmysteryalgorithms.cpp
+    sortertester.h sortertester.cpp
 )
 
 # Make sure you're using linux (or wsl2)
