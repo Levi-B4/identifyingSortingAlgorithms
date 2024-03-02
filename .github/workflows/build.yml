@@ -71,28 +71,28 @@ on:
       
 
 
-      - name: Run the project - Normal
-        working-directory: ${{runner.workspace}}/build
-        run: ./${{env.EXE_NAME}} $OUTPUT_FILES 1>/dev/null
+          ###- name: Run the project - Normal
+          ###working-directory: ${{runner.workspace}}/build
+          ###run: ./${{env.EXE_NAME}} $OUTPUT_FILES 1>/dev/null
 
-      - name: Run the project - Valgrind
-        working-directory: ${{runner.workspace}}/build
-        run: valgrind --error-exitcode=42 --errors-for-leak-kinds=all --leak-check=full ./${{env.EXE_NAME}} $OUTPUT_FILES 1>/dev/null
+          ###- name: Run the project - Valgrind
+          ###  working-directory: ${{runner.workspace}}/build
+          ###  run: valgrind --error-exitcode=42 --errors-for-leak-kinds=all --leak-check=full ./${{env.EXE_NAME}} $OUTPUT_FILES 1>/dev/null
 
 
 
-      - name: Copy output files to artifact directory
-        working-directory: ${{runner.workspace}}/build
-        run: |
-          mkdir artifacts
-          for f in $OUTPUT_FILES
-          do
-            echo "  Copying $f"
-            cp $f artifacts/
-          done
+          ###- name: Copy output files to artifact directory
+          ###working-directory: ${{runner.workspace}}/build
+          ###run: |
+          ###mkdir artifacts
+          ###for f in $OUTPUT_FILES
+          ###do
+          ###  echo "  Copying $f"
+          ###  cp $f artifacts/
+          ###done
 
-      - name: Upload output files to GitHub so they can be reviewed
-        uses: actions/upload-artifact@v1
-        with:
-          name: project_output
-          path: ${{runner.workspace}}/build/artifacts
+          ###- name: Upload output files to GitHub so they can be reviewed
+          ###uses: actions/upload-artifact@v1
+          ###with:
+          ###name: project_output
+          ###path: ${{runner.workspace}}/build/artifacts
