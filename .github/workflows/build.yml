@@ -4,10 +4,10 @@ on:
   push:
     branches: [main]
 
-  jobs:
-    build:
-      name: ${{matrix.config.name}}
-        runs-on ${{matrix.config.os}}
+jobs:
+  build:
+    name: ${{matrix.config.name}}
+    runs-on ${{matrix.config.os}}
     timeout-minutes: 3
     env:
       BUILD_TYPE: Release
