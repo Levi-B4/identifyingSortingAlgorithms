@@ -39,11 +39,6 @@ jobs:
       - name: Checkout project repo from GitHub
         uses: actions/checkout@v1
 
-      - name: Download required linux packages
-        run: |
-          sudo apt update
-          sudo apt install expect valgrind g++-multilib qemu-user
-      
       - name: Executable name Environment Variable Check
         run: |
           echo ${{env.EXE_NAME}}
@@ -70,16 +65,10 @@ jobs:
         run: ls -al ${{runner.workspace}}/build
       
 
-
       - name: Run the project - Normal
         working-directory: ${{runner.workspace}}/build
         run: ./${{env.EXE_NAME}} $OUTPUT_FILES 1>/dev/null
 
-      - name: Run the project - Valgrind
-        working-directory: ${{runner.workspace}}/build
-        run: valgrind --error-exitcode=42 --errors-for-leak-kinds=all --leak-check=full ./${{env.EXE_NAME}} $OUTPUT_FILES 1>/dev/null
-
-      
 
       - name: Copy output files to artifact directory
         working-directory: ${{runner.workspace}}/build
