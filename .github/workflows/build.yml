@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     name: ${{matrix.config.name}}
-    runs-on ${{matrix.config.os}}
+    runs-on: ${{matrix.config.os}}
     timeout-minutes: 3
     env:
       BUILD_TYPE: Release
@@ -58,41 +58,41 @@ jobs:
       - name: Create build environment
         run:  mkdir ${{runner.workspace}}/build
       
-          ###- name: Configure the build
-          ###working-directory: ${{runner.workspace}}/build
-          ###run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+      - name: Configure the build
+        working-directory: ${{runner.workspace}}/build
+        run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE
       
-          ###- name: Build the project
-          ###working-directory: ${{runner.workspace}}/build
-          ###run: cmake --build . --config $BUILD_TYPE
+      - name: Build the project
+        working-directory: ${{runner.workspace}}/build
+        run: cmake --build . --config $BUILD_TYPE
       
-          ###- name: List contents of build directory
-          ###run: ls -al ${{runner.workspace}}/build
+      - name: List contents of build directory
+        run: ls -al ${{runner.workspace}}/build
       
 
 
-          ###- name: Run the project - Normal
-          ###working-directory: ${{runner.workspace}}/build
-          ###run: ./${{env.EXE_NAME}} $OUTPUT_FILES 1>/dev/null
+      - name: Run the project - Normal
+        working-directory: ${{runner.workspace}}/build
+        run: ./${{env.EXE_NAME}} $OUTPUT_FILES 1>/dev/null
 
-          ###- name: Run the project - Valgrind
-          ###  working-directory: ${{runner.workspace}}/build
-          ###  run: valgrind --error-exitcode=42 --errors-for-leak-kinds=all --leak-check=full ./${{env.EXE_NAME}} $OUTPUT_FILES 1>/dev/null
+      - name: Run the project - Valgrind
+        working-directory: ${{runner.workspace}}/build
+        run: valgrind --error-exitcode=42 --errors-for-leak-kinds=all --leak-check=full ./${{env.EXE_NAME}} $OUTPUT_FILES 1>/dev/null
 
 
 
-          ###- name: Copy output files to artifact directory
-          ###working-directory: ${{runner.workspace}}/build
-          ###run: |
-          ###mkdir artifacts
-          ###for f in $OUTPUT_FILES
-          ###do
-          ###  echo "  Copying $f"
-          ###  cp $f artifacts/
-          ###done
+      - name: Copy output files to artifact directory
+        working-directory: ${{runner.workspace}}/build
+        run: |
+          mkdir artifacts
+          for f in $OUTPUT_FILES
+          do
+            echo "  Copying $f"
+            cp $f artifacts/
+          done
 
-          ###- name: Upload output files to GitHub so they can be reviewed
-          ###uses: actions/upload-artifact@v1
-          ###with:
-          ###name: project_output
-          ###path: ${{runner.workspace}}/build/artifacts
+      - name: Upload output files to GitHub so they can be reviewed
+        uses: actions/upload-artifact@v1
+        with:
+          name: project_output
+          path: ${{runner.workspace}}/build/artifacts
