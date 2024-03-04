@@ -2,7 +2,7 @@ name: MysterySorters
 
 on:
   push:
-    branches: [implementGithubActions]
+    branches: [main]
 
 jobs:
   build:
